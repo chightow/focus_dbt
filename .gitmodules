@@ -1,0 +1,3 @@
+[submodule "focus_validator"]
+	path = focus_validator
+	url = https://github.com/finopsfoundation/focus_validator.git
