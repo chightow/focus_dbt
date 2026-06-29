@@ -1,0 +1,102 @@
+version: 2
+
+models:
+  - name: int_anthropic_cost_and_usage
+    description: "Anthropic API to FOCUS mapping - CostAndUsage"
+    columns:
+      - name: InvoiceIssuerName
+        tests:
+          - accepted_values:
+              config:
+                severity: error
+                tags: ["intermediate", "anthropic", "provider_check"]
+              values: ["Anthropic"]
+      - name: ServiceProviderName
+        tests:
+          - accepted_values:
+              config:
+                severity: error
+                tags: ["intermediate", "anthropic", "provider_check"]
+              values: ["Anthropic"]
+      - name: BillingCurrency
+        tests:
+          - accepted_values:
+              config:
+                severity: error
+                tags: ["intermediate", "anthropic", "currency"]
+              values: ["USD"]
+
+  - name: int_copilot_cost_and_usage
+    description: "GitHub Copilot to FOCUS mapping - CostAndUsage"
+    columns:
+      - name: InvoiceIssuerName
+        tests:
+          - accepted_values:
+              config:
+                severity: error
+                tags: ["intermediate", "copilot", "provider_check"]
+              values: ["GitHub"]
+      - name: ServiceProviderName
+        tests:
+          - accepted_values:
+              config:
+                severity: error
+                tags: ["intermediate", "copilot", "provider_check"]
+              values: ["GitHub"]
+      - name: BillingCurrency
+        tests:
+          - accepted_values:
+              config:
+                severity: error
+                tags: ["intermediate", "copilot", "currency"]
+              values: ["USD"]
+
+  - name: int_azure_ai_cost_and_usage
+    description: "Azure AI to FOCUS mapping - CostAndUsage"
+    columns:
+      - name: InvoiceIssuerName
+        tests:
+          - accepted_values:
+              config:
+                severity: error
+                tags: ["intermediate", "azure", "provider_check"]
+              values: ["Microsoft"]
+      - name: ServiceProviderName
+        tests:
+          - accepted_values:
+              config:
+                severity: error
+                tags: ["intermediate", "azure", "provider_check"]
+              values: ["Microsoft"]
+      - name: BillingCurrency
+        tests:
+          - accepted_values:
+              config:
+                severity: error
+                tags: ["intermediate", "azure", "currency"]
+              values: ["USD"]
+
+  - name: int_aws_cur_cost_and_usage
+    description: "AWS CUR 2.0 to FOCUS mapping — Bedrock (shameful snake_case edition)"
+    columns:
+      - name: InvoiceIssuerName
+        tests:
+          - accepted_values:
+              config:
+                severity: error
+                tags: ["intermediate", "aws", "provider_check"]
+              values: ["AWS"]
+      - name: ServiceProviderName
+        tests:
+          - accepted_values:
+              config:
+                severity: error
+                tags: ["intermediate", "aws", "provider_check"]
+              values: ["AWS"]
+      - name: BillingCurrency
+        tests:
+          - accepted_values:
+              config:
+                severity: error
+                tags: ["intermediate", "aws", "currency"]
+              values: ["USD"]

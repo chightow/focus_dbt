@@ -1,0 +1,9 @@
+# dbt artifacts
+focus_dbt_project/dbt_packages/
+focus_dbt_project/target/
+focus_dbt_project/*.duckdb
+focus_dbt_project/package-lock.yml
+
+# Python
+__pycache__/
+*.pyc

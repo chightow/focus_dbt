@@ -1,0 +1,655 @@
+version: 2
+
+models:
+  - name: focus_cost_and_usage
+    description: "Canonical FOCUS CostAndUsage dataset"
+    columns:
+      - name: BilledCost
+        data_type: DOUBLE
+        description: "The billed cost for the charge"
+        tests:
+          - focus_type_decimal:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - focus_format_numeric:
+              config:
+                severity: error
+                tags: ["focus", "format", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: BillingAccountId
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - focus_format_string:
+              config:
+                severity: error
+                tags: ["focus", "format", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: BillingAccountName
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: BillingAccountType
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: BillingCurrency
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - focus_format_currency:
+              config:
+                severity: error
+                tags: ["focus", "format", "cost_and_usage"]
+          - focus_national_currency:
+              config:
+                severity: error
+                tags: ["focus", "currency", "cost_and_usage"]
+              values: ["AED","AFN","ALL","AMD","ANG","AOA","ARS","AUD","AWG","AZN","BAM","BBD","BDT","BGN","BHD","BIF","BMD","BND","BOB","BOV","BRL","BSD","BTN","BWP","BYN","BZD","CAD","CDF","CHE","CHF","CHW","CLF","CLP","CNY","COP","COU","CRC","CUC","CUP","CVE","CZK","DJF","DKK","DOP","DZD","EGP","ERN","ETB","EUR","FJD","FKP","GBP","GEL","GHS","GIP","GMD","GNF","GTQ","GYD","HKD","HNL","HTG","HUF","IDR","ILS","INR","IQD","IRR","ISK","JMD","JOD","JPY","KES","KGS","KHR","KMF","KPW","KRW","KWD","KYD","KZT","LAK","LBP","LKR","LRD","LSL","LYD","MAD","MDL","MGA","MKD","MMK","MNT","MOP","MRU","MUR","MVR","MWK","MXN","MXV","MYR","MZN","NAD","NGN","NIO","NOK","NPR","NZD","OMR","PAB","PEN","PGK","PHP","PKR","PLN","PYG","QAR","RON","RSD","RUB","RWF","SAR","SBD","SCR","SDG","SEK","SGD","SHP","SLE","SLL","SOS","SRD","SSP","STN","SVC","SYP","SZL","THB","TJS","TMT","TND","TOP","TRY","TTD","TWD","TZS","UAH","UGX","USD","USN","UYI","UYU","UYW","UZS","VED","VES","VND","VUV","WST","XAF","XAG","XAU","XBA","XBB","XBC","XBD","XCD","XDR","XOF","XPD","XPF","XPT","XSU","XTS","XUA","XXX","YER","ZAR","ZMW","ZWG"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: BillingPeriodStart
+        data_type: TIMESTAMP
+        tests:
+          - focus_type_datetime:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - focus_format_datetime:
+              config:
+                severity: error
+                tags: ["focus", "format", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: BillingPeriodEnd
+        data_type: TIMESTAMP
+        tests:
+          - focus_type_datetime:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - focus_format_datetime:
+              config:
+                severity: error
+                tags: ["focus", "format", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: ChargeCategory
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: ChargeClass
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: ChargeDescription
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: ChargeFrequency
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "cost_and_usage"]
+
+      - name: ChargePeriodStart
+        data_type: TIMESTAMP
+        tests:
+          - focus_type_datetime:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - focus_format_datetime:
+              config:
+                severity: error
+                tags: ["focus", "format", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: ChargePeriodEnd
+        data_type: TIMESTAMP
+        tests:
+          - focus_type_datetime:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - focus_format_datetime:
+              config:
+                severity: error
+                tags: ["focus", "format", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: CommitmentDiscountCategory
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: CommitmentDiscountId
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: CommitmentDiscountName
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: CommitmentDiscountQuantity
+        data_type: DOUBLE
+        tests:
+          - focus_type_decimal:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: CommitmentDiscountStatus
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: CommitmentDiscountType
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: CommitmentDiscountUnit
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: ConsumedQuantity
+        data_type: DOUBLE
+        tests:
+          - focus_type_decimal:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: ConsumedUnit
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: ContractedCost
+        data_type: DOUBLE
+        tests:
+          - focus_type_decimal:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - focus_format_numeric:
+              config:
+                severity: error
+                tags: ["focus", "format", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: ContractedUnitPrice
+        data_type: DOUBLE
+        tests:
+          - focus_type_decimal:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: EffectiveCost
+        data_type: DOUBLE
+        tests:
+          - focus_type_decimal:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - focus_format_numeric:
+              config:
+                severity: error
+                tags: ["focus", "format", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: ListCost
+        data_type: DOUBLE
+        tests:
+          - focus_type_decimal:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - focus_format_numeric:
+              config:
+                severity: error
+                tags: ["focus", "format", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: ListUnitPrice
+        data_type: DOUBLE
+        tests:
+          - focus_type_decimal:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: PricingCategory
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: PricingCurrency
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+          - focus_format_currency:
+              config:
+                severity: warn
+                tags: ["focus", "format", "conditional"]
+
+      - name: PricingQuantity
+        data_type: DOUBLE
+        tests:
+          - focus_type_decimal:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - focus_format_numeric:
+              config:
+                severity: error
+                tags: ["focus", "format", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: PricingUnit
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - focus_format_unit:
+              config:
+                severity: error
+                tags: ["focus", "format", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: ServiceCategory
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: ServiceName
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: ServiceSubcategory
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "cost_and_usage"]
+
+      - name: SkuId
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: SkuMeter
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: SkuPriceDetails
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: SkuPriceId
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: SubAccountId
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: SubAccountName
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: SubAccountType
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: AvailabilityZone
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: CapacityReservationId
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: CapacityReservationStatus
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: ResourceId
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: ResourceName
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: ResourceType
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: RegionId
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+
+      - name: RegionName
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: Tags
+        data_type: VARCHAR
+        tests:
+          - focus_format_key_value:
+              config:
+                severity: warn
+                tags: ["focus", "format", "conditional"]
+
+      - name: InvoiceId
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: InvoiceIssuerName
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: InvoiceDetailId
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: AllocatedResourceId
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: AllocatedResourceName
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: AllocatedMethodId
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+
+      - name: AllocatedMethodDetails
+        data_type: JSON
+        tests:
+          - focus_type_json:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+          - focus_format_json:
+              config:
+                severity: warn
+                tags: ["focus", "format", "conditional"]
+
+      - name: AllocatedTags
+        data_type: VARCHAR
+        tests:
+          - focus_format_key_value:
+              config:
+                severity: warn
+                tags: ["focus", "format", "conditional"]
+
+      - name: ContractApplied
+        data_type: JSON
+        tests:
+          - focus_type_json:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+          - focus_format_json:
+              config:
+                severity: warn
+                tags: ["focus", "format", "conditional"]
+
+      - name: CommitmentProgramEligibilityDetails
+        data_type: JSON
+        tests:
+          - focus_type_json:
+              config:
+                severity: warn
+                tags: ["focus", "type", "conditional"]
+          - focus_format_json:
+              config:
+                severity: warn
+                tags: ["focus", "format", "conditional"]
+
+      - name: HostProviderName
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]
+
+      - name: ServiceProviderName
+        data_type: VARCHAR
+        tests:
+          - focus_type_string:
+              config:
+                severity: error
+                tags: ["focus", "type", "cost_and_usage"]
+          - not_null:
+              config:
+                severity: error
+                tags: ["focus", "presence", "cost_and_usage"]

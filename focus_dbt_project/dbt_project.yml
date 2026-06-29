@@ -1,0 +1,56 @@
+name: 'focus_validator_dbt'
+version: '1.4'
+config-version: 2
+profile: 'focus_validator_dbt'
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  focus_validator_dbt:
+    +schema: main
+
+    staging:
+      +materialized: view
+      +tags: ["staging"]
+
+    intermediate:
+      +materialized: view
+      +tags: ["intermediate"]
+      providers:
+        +materialized: view
+
+    focus:
+      +materialized: view
+      +tags: ["focus", "canonical"]
+
+    validate:
+      +materialized: view
+      +tags: ["validate", "focus"]
+
+vars:
+  focus_version: "1.4"
+  focus_model_version: "1.4"
+  provider: "none"
+  enabled_providers: ["anthropic", "copilot", "azure_ai", "aws_cur"]
+  anthropic_usage_path: "data/anthropic_usage.json"
+  anthropic_cost_path: "data/anthropic_cost.json"
+  azure_ai_path: "data/azure_ai.csv"
+  aws_cur_path: "data/aws_cur.csv"
+  copilot_usage_path: "data/copilot_usage.csv"
+  copilot_billing_path: "data/copilot_billing.csv"
+  cau_csv_path: "data/cost_and_usage.csv"
+  bip_csv_path: "data/billing_period.csv"
+  cct_csv_path: "data/contract_commitment.csv"
+  ind_csv_path: "data/invoice_detail.csv"
+
+dispatch:
+  - macro_namespace: focus_validator_dbt
+    search_order: ["focus_validator_dbt"]

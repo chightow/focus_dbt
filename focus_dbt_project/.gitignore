@@ -1,0 +1,23 @@
+# DuckDB database files
+*.duckdb
+*.duckdb.wal
+
+# dbt artifacts
+target/
+dbt_packages/
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Data files (user-provided)
+data/*.csv
+data/*.parquet
+!data/.gitkeep
+
+# IDE
+.idea/
+.vscode/
+*.swp

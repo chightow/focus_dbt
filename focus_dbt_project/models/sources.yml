@@ -1,0 +1,315 @@
+version: 2
+
+sources:
+  - name: raw_provider_data
+    database: focus
+    schema: main
+    description: "Raw provider billing data files ingested via DuckDB native readers"
+    freshness:
+      warn_after:
+        count: 24
+        period: hour
+    loaded_at_field: _loaded_at
+    tables:
+      - name: cost_and_usage
+        description: "Raw cost and usage data (CSV/Parquet/JSON from any provider)"
+        external:
+          location: "{{ var('cau_csv_path', 'data/cost_and_usage.csv') }}"
+          options:
+            format: "{{ var('cau_format', 'csv') }}"
+            skip_rows: 0
+        columns:
+          - name: _raw_content
+            data_type: VARCHAR
+            description: "Raw file contents - use staging models to parse"
+
+      - name: billing_period
+        description: "Raw billing period data (CSV/Parquet/JSON)"
+        external:
+          location: "{{ var('bip_csv_path', 'data/billing_period.csv') }}"
+          options:
+            format: "{{ var('bip_format', 'csv') }}"
+        columns:
+          - name: _raw_content
+            data_type: VARCHAR
+
+      - name: contract_commitment
+        description: "Raw contract commitment data (CSV/Parquet/JSON)"
+        external:
+          location: "{{ var('cct_csv_path', 'data/contract_commitment.csv') }}"
+          options:
+            format: "{{ var('cct_format', 'csv') }}"
+        columns:
+          - name: _raw_content
+            data_type: VARCHAR
+
+      - name: invoice_detail
+        description: "Raw invoice detail data (CSV/Parquet/JSON)"
+        external:
+          location: "{{ var('ind_csv_path', 'data/invoice_detail.csv') }}"
+          options:
+            format: "{{ var('ind_format', 'csv') }}"
+        columns:
+          - name: _raw_content
+            data_type: VARCHAR
+
+  - name: focus_datasets
+    database: focus
+    schema: main
+    description: "Canonical FOCUS 1.4 output datasets"
+    tables:
+      - name: CostAndUsage
+        description: "FOCUS CostAndUsage dataset - cost and usage rows"
+        columns:
+          - name: BilledCost
+            data_type: DOUBLE
+          - name: BillingAccountId
+            data_type: VARCHAR
+          - name: BillingAccountName
+            data_type: VARCHAR
+          - name: BillingAccountType
+            data_type: VARCHAR
+          - name: BillingCurrency
+            data_type: VARCHAR
+          - name: BillingPeriodStart
+            data_type: TIMESTAMP
+          - name: BillingPeriodEnd
+            data_type: TIMESTAMP
+          - name: ChargeCategory
+            data_type: VARCHAR
+          - name: ChargeClass
+            data_type: VARCHAR
+          - name: ChargeDescription
+            data_type: VARCHAR
+          - name: ChargeFrequency
+            data_type: VARCHAR
+          - name: ChargePeriodStart
+            data_type: TIMESTAMP
+          - name: ChargePeriodEnd
+            data_type: TIMESTAMP
+          - name: CommitmentDiscountCategory
+            data_type: VARCHAR
+          - name: CommitmentDiscountId
+            data_type: VARCHAR
+          - name: CommitmentDiscountName
+            data_type: VARCHAR
+          - name: CommitmentDiscountQuantity
+            data_type: DOUBLE
+          - name: CommitmentDiscountStatus
+            data_type: VARCHAR
+          - name: CommitmentDiscountType
+            data_type: VARCHAR
+          - name: CommitmentDiscountUnit
+            data_type: VARCHAR
+          - name: ConsumedQuantity
+            data_type: DOUBLE
+          - name: ConsumedUnit
+            data_type: VARCHAR
+          - name: ContractedCost
+            data_type: DOUBLE
+          - name: ContractedUnitPrice
+            data_type: DOUBLE
+          - name: EffectiveCost
+            data_type: DOUBLE
+          - name: ListCost
+            data_type: DOUBLE
+          - name: ListUnitPrice
+            data_type: DOUBLE
+          - name: PricingCategory
+            data_type: VARCHAR
+          - name: PricingCurrency
+            data_type: VARCHAR
+          - name: PricingQuantity
+            data_type: DOUBLE
+          - name: PricingUnit
+            data_type: VARCHAR
+          - name: ServiceCategory
+            data_type: VARCHAR
+          - name: ServiceName
+            data_type: VARCHAR
+          - name: ServiceSubcategory
+            data_type: VARCHAR
+          - name: SkuId
+            data_type: VARCHAR
+          - name: SkuMeter
+            data_type: VARCHAR
+          - name: SkuPriceDetails
+            data_type: VARCHAR
+          - name: SkuPriceId
+            data_type: VARCHAR
+          - name: SubAccountId
+            data_type: VARCHAR
+          - name: SubAccountName
+            data_type: VARCHAR
+          - name: SubAccountType
+            data_type: VARCHAR
+          - name: AvailabilityZone
+            data_type: VARCHAR
+          - name: CapacityReservationId
+            data_type: VARCHAR
+          - name: CapacityReservationStatus
+            data_type: VARCHAR
+          - name: ResourceId
+            data_type: VARCHAR
+          - name: ResourceName
+            data_type: VARCHAR
+          - name: ResourceType
+            data_type: VARCHAR
+          - name: RegionId
+            data_type: VARCHAR
+          - name: RegionName
+            data_type: VARCHAR
+          - name: Tags
+            data_type: VARCHAR
+          - name: InvoiceId
+            data_type: VARCHAR
+          - name: InvoiceIssuerName
+            data_type: VARCHAR
+          - name: InvoiceDetailId
+            data_type: VARCHAR
+          - name: AllocatedResourceId
+            data_type: VARCHAR
+          - name: AllocatedResourceName
+            data_type: VARCHAR
+          - name: AllocatedMethodId
+            data_type: VARCHAR
+          - name: AllocatedMethodDetails
+            data_type: JSON
+          - name: AllocatedTags
+            data_type: VARCHAR
+          - name: ContractApplied
+            data_type: JSON
+          - name: CommitmentProgramEligibilityDetails
+            data_type: JSON
+          - name: HostProviderName
+            data_type: VARCHAR
+          - name: ServiceProviderName
+            data_type: VARCHAR
+
+      - name: BillingPeriod
+        description: "FOCUS BillingPeriod dataset - billing period metadata"
+        columns:
+          - name: BillingPeriodCreated
+            data_type: TIMESTAMP
+          - name: BillingPeriodEnd
+            data_type: TIMESTAMP
+          - name: BillingPeriodLastUpdated
+            data_type: TIMESTAMP
+          - name: BillingPeriodStart
+            data_type: TIMESTAMP
+          - name: BillingPeriodStatus
+            data_type: VARCHAR
+          - name: InvoiceIssuerName
+            data_type: VARCHAR
+
+      - name: InvoiceDetail
+        description: "FOCUS InvoiceDetail dataset - invoice line items"
+        columns:
+          - name: BilledCost
+            data_type: DOUBLE
+          - name: BillingAccountId
+            data_type: VARCHAR
+          - name: BillingCurrency
+            data_type: VARCHAR
+          - name: BillingPeriodEnd
+            data_type: TIMESTAMP
+          - name: BillingPeriodStart
+            data_type: TIMESTAMP
+          - name: ChargeCategory
+            data_type: VARCHAR
+          - name: InvoiceDetailCreated
+            data_type: TIMESTAMP
+          - name: InvoiceDetailDescription
+            data_type: VARCHAR
+          - name: InvoiceDetailGrain
+            data_type: VARCHAR
+          - name: InvoiceDetailId
+            data_type: VARCHAR
+          - name: InvoiceDetailLastUpdated
+            data_type: TIMESTAMP
+          - name: InvoiceId
+            data_type: VARCHAR
+          - name: InvoiceIssueDate
+            data_type: TIMESTAMP
+          - name: InvoiceIssuerName
+            data_type: VARCHAR
+          - name: InvoiceIssueStatus
+            data_type: VARCHAR
+          - name: PaymentCurrency
+            data_type: VARCHAR
+          - name: PaymentCurrencyBilledCost
+            data_type: DOUBLE
+          - name: PaymentCurrencyInvoiceDetailId
+            data_type: VARCHAR
+          - name: PaymentDueDate
+            data_type: TIMESTAMP
+          - name: PaymentTerms
+            data_type: VARCHAR
+          - name: PurchaseOrderNumber
+            data_type: VARCHAR
+          - name: ReferenceInvoiceId
+            data_type: VARCHAR
+
+      - name: ContractCommitment
+        description: "FOCUS ContractCommitment dataset - commitment/contract terms"
+        columns:
+          - name: BillingCurrency
+            data_type: VARCHAR
+          - name: ContractCommitmentApplicability
+            data_type: JSON
+          - name: ContractCommitmentBenefitCategory
+            data_type: VARCHAR
+          - name: ContractCommitmentCategory
+            data_type: VARCHAR
+          - name: ContractCommitmentCost
+            data_type: DOUBLE
+          - name: ContractCommitmentCreated
+            data_type: TIMESTAMP
+          - name: ContractCommitmentDescription
+            data_type: VARCHAR
+          - name: ContractCommitmentDiscountPercentage
+            data_type: DOUBLE
+          - name: ContractCommitmentDurationType
+            data_type: VARCHAR
+          - name: ContractCommitmentFulfillmentInterval
+            data_type: VARCHAR
+          - name: ContractCommitmentId
+            data_type: VARCHAR
+          - name: ContractCommitmentLastUpdated
+            data_type: TIMESTAMP
+          - name: ContractCommitmentLifecycleStatus
+            data_type: VARCHAR
+          - name: ContractCommitmentModel
+            data_type: VARCHAR
+          - name: ContractCommitmentOfferCategory
+            data_type: VARCHAR
+          - name: ContractCommitmentPaymentInterval
+            data_type: VARCHAR
+          - name: ContractCommitmentPaymentModel
+            data_type: VARCHAR
+          - name: ContractCommitmentPaymentUpfrontPercentage
+            data_type: DOUBLE
+          - name: ContractCommitmentPeriodEnd
+            data_type: TIMESTAMP
+          - name: ContractCommitmentPeriodStart
+            data_type: TIMESTAMP
+          - name: ContractCommitmentQuantity
+            data_type: DOUBLE
+          - name: ContractCommitmentType
+            data_type: VARCHAR
+          - name: ContractCommitmentUnit
+            data_type: VARCHAR
+          - name: ContractId
+            data_type: VARCHAR
+          - name: ContractPeriodEnd
+            data_type: TIMESTAMP
+          - name: ContractPeriodStart
+            data_type: TIMESTAMP
+          - name: InvoiceIssuerName
+            data_type: VARCHAR
+          - name: PricingCurrency
+            data_type: VARCHAR
+          - name: PricingCurrencyContractCommitmentCost
+            data_type: DOUBLE
+          - name: ServiceProviderName
+            data_type: VARCHAR

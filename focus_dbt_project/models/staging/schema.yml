@@ -1,0 +1,116 @@
+version: 2
+
+models:
+  - name: stg_cost_and_usage
+    columns:
+      - name: _loaded_at
+        tests:
+          - not_null
+
+  - name: stg_billing_period
+    columns:
+      - name: _loaded_at
+        tests:
+          - not_null
+
+  - name: stg_contract_commitment
+    columns:
+      - name: _loaded_at
+        tests:
+          - not_null
+
+  - name: stg_invoice_detail
+    columns:
+      - name: _loaded_at
+        tests:
+          - not_null
+
+  - name: stg_anthropic_usage
+    columns:
+      - name: bucket_start
+        tests:
+          - not_null
+      - name: model
+        tests:
+          - not_null
+    tests:
+      - focus_schema_assert:
+          manifest_key: anthropic_usage
+          config:
+            severity: error
+            tags: ["schema", "anthropic", "provider_check"]
+
+  - name: stg_anthropic_cost
+    columns:
+      - name: bucket_start
+        tests:
+          - not_null
+      - name: amount_usd
+        tests:
+          - not_null
+    tests:
+      - focus_schema_assert:
+          manifest_key: anthropic_cost
+          config:
+            severity: error
+            tags: ["schema", "anthropic", "provider_check"]
+
+  - name: stg_copilot_usage
+    columns:
+      - name: usage_date
+        tests:
+          - not_null
+      - name: user_name
+        tests:
+          - not_null
+    tests:
+      - focus_schema_assert:
+          manifest_key: copilot_usage
+          config:
+            severity: error
+            tags: ["schema", "copilot", "provider_check"]
+
+  - name: stg_copilot_billing
+    columns:
+      - name: user_name
+        tests:
+          - not_null
+      - name: monthly_cost
+        tests:
+          - not_null
+    tests:
+      - focus_schema_assert:
+          manifest_key: copilot_billing
+          config:
+            severity: error
+            tags: ["schema", "copilot", "provider_check"]
+
+  - name: stg_azure_ai
+    columns:
+      - name: BillingPeriodStart
+        tests:
+          - not_null
+      - name: BilledCost
+        tests:
+          - not_null
+    tests:
+      - focus_schema_assert:
+          manifest_key: azure_ai
+          config:
+            severity: error
+            tags: ["schema", "azure", "provider_check"]
+
+  - name: stg_aws_cur
+    columns:
+      - name: UsageAccountId
+        tests:
+          - not_null
+      - name: UsageAmount
+        tests:
+          - not_null
+    tests:
+      - focus_schema_assert:
+          manifest_key: aws_cur
+          config:
+            severity: error
+            tags: ["schema", "aws", "provider_check"]

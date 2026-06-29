@@ -1,0 +1,7 @@
+focus_validator_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: focus_1_4.duckdb
+      threads: 4
