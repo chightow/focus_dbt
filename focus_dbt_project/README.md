@@ -1,6 +1,6 @@
-# Provider → FOCUS Mapping with dbt + DuckDB
+# focus_dbt — Filter the Garbage
 
-Demonstrates how to map cloud/AI provider billing data to the [FOCUS](https://focus.finops.org/) 1.4 specification using dbt and DuckDB.
+Map irregular cloud/AI provider billing data to [FOCUS](https://focus.finops.org/) 1.4 using dbt + DuckDB.
 
 ## Providers
 

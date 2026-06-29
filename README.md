@@ -1,57 +1,71 @@
-# AI → FOCUS Mapping with dbt
+# focus_dbt — Filter the Garbage
 
-**100% AI-generated slop for ~$0.15 in API costs.**
+**Map irregular cloud/AI billing data to [FOCUS](https://focus.finops.org/) 1.4 using DuckDB + dbt.**
 
-This repo demonstrates how to map cloud/AI provider billing data to the [FOCUS](https://focus.finops.org/) 1.4 spec using dbt + DuckDB. It was entirely produced by an LLM in a single session as a pattern demonstration. Not production code. Not validated by anyone who actually knows what they're doing.
+Every AI provider ships billing data in a different shape:
+- Anthropic: deeply nested JSON with UNNESTs
+- Copilot: flat CSVs from billing exports
+- Azure: FOCUS-native (already compliant)
+- AWS: CUR 2.0 snake_case prefix soup
+
+This repo shows how DuckDB + dbt can ingest any of them, normalize to FOCUS, and validate the output against the spec — so you can **filter the garbage** before it reaches your FinOps pipeline.
 
 ## Providers
 
-| Provider | Data Format | Status | Real Data? |
+| Provider | Format | Ingestion | Validation |
 |---|---|---|---|
-| **Anthropic** | NDJSON | Working | Fabricated |
-| **GitHub Copilot** | CSV | Working | Fabricated |
-| **Azure AI** | CSV | Working | Fabricated |
-| **AWS Bedrock** | CSV (CUR 2.0) | Working | Fabricated, based on docs |
+| **Anthropic** | NDJSON | `CROSS JOIN UNNEST` | Schema assert + type checks |
+| **Copilot** | CSV | `read_csv_auto` | Schema assert + type checks |
+| **Azure AI** | CSV (FOCUS) | `read_csv_auto` | Nearly 1:1 |
+| **AWS Bedrock** | CSV (CUR 2.0) | `read_csv_auto` with quoted `/` columns | Snake_case → FOCUS |
 
-## Why
+## Architecture
 
-FOCUS is a decent spec. No one implements it well. This shows the mapping pattern for 4 AI providers so someone could adapt it to real data without starting from scratch.
-
-## Requirements
-
-```bash
-pip install dbt-duckdb
+```
+Provider Data (JSON / CSV / whatever)
+    |
+    | DuckDB native readers (no ETL tool)
+    v
+staging/            ← raw ingestion, type casting
+intermediate/       ← provider → FOCUS column mapping
+focus/              ← canonical FOCUS output
+validate/           ← FOCUS spec tests (auto-generated)
+    |
+    v
+Pass / Fail report  ← schema drift? type mismatch? caught here
 ```
 
 ## Quick Start
 
 ```bash
 cd focus_dbt_project
+pip install dbt-duckdb
 python ../scripts/generate_sample_data.py
 dbt deps
 dbt build --vars '{provider: anthropic}'
-dbt build   # all 4 providers
+dbt build   # all 4 providers + FOCUS spec validation
 ```
 
-## What's Here
+## What filter the garbage means
 
-```
-scripts/generate_sample_data.py   — makes up fake data that looks like real APIs
-focus_dbt_project/
-  models/staging/                  — raw ingestion (JSON UNNEST, CSV read)
-  models/intermediate/providers/   — 4 provider → FOCUS mappings
-  models/focus/                    — canonical FOCUS output
-  macros/                          — DuckDB helpers + FOCUS spec tests
-```
+- **`focus_schema_assert`** — tests on every staging model that fail if an unexpected column appears (API added a field? You'll know.)
+- **20+ custom generic tests** — type checks, format checks, range checks, cross-column consistency
+- **Auto-generated validate layer** — pulled from the FOCUS 1.4 model JSON, every column's spec requirements turned into dbt tests
+- **Irregular sources, regular output** — different JSON shapes, CSV formats, column naming conventions all land in the same FOCUS schema
 
 ## Caveats
 
-- **Data is fake.** Sample data mimics API shapes but has no real billing values.
-- **AI-generated.** Every line of SQL and Python was written by an LLM. Review before using.
-- **CostAndUsage only.** The spec has 4 datasets; this only addresses 1.
-- **Commitment discounts not handled.** Reservations, Savings Plans, annual commitments — not modeled.
-- **AWS Bedrock gap.** AWS has FOCUS exports in Data Exports. Bedrock wasn't added to them. That's the mapping gap this project exists to work around.
+100% AI-generated. ~$0.15 in API costs. Data is fabricated. CostAndUsage only (not BillingPeriod/InvoiceDetail/ContractCommitment). Review before using.
+
+## Map your own
+
+Add a provider in 4 files:
+
+1. `data/{provider}.csv` — your sample data
+2. `models/staging/stg_{provider}.sql` — ingest + cast
+3. `models/intermediate/providers/{provider}/int_{provider}_cost_and_usage.sql` — map every FOCUS column
+4. Update `macros/map/focus_schema.sql` with your schema manifest
 
 ## License
 
-Do whatever you want. It's AI slop.
+Do whatever.
