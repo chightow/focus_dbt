@@ -55,7 +55,7 @@ dbt build   # all 4 providers + FOCUS spec validation
 
 ## Caveats
 
-100% AI-generated. ~$0.15 in API costs. Data is fabricated. CostAndUsage only (not BillingPeriod/InvoiceDetail/ContractCommitment). Review before using.
+**~$0.14 of AI-generated slop showing the pattern. Data is fabricated. Review before using.**
 
 ## Map your own
 
