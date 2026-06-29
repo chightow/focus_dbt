@@ -7,3 +7,7 @@ focus_dbt_project/package-lock.yml
 # Python
 __pycache__/
 *.pyc
+
+# dbt user config
+.user.yml
+.user.yml.*

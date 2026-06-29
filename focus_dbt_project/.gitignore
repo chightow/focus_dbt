@@ -12,10 +12,8 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 
-# Data files (user-provided)
-data/*.csv
+# User-provided data files (parquet is typically too large)
 data/*.parquet
-!data/.gitkeep
 
 # IDE
 .idea/

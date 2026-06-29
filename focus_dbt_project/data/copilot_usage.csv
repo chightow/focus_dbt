@@ -1,0 +1,36 @@
+date,product,sku,model,unit_type,quantity,gross_amount,discount_amount,net_amount,organization,user,team
+2025-01-06,Copilot,ai_credits,claude-sonnet-4-6,requests,500,15.00,0.00,15.00,myorg,alice,Engineering
+2025-01-06,Copilot,ai_credits,claude-sonnet-4-6,requests,350,10.50,0.00,10.50,myorg,bob,Engineering
+2025-01-06,Copilot,ai_credits,claude-haiku-3-5-20241022,requests,200,6.00,0.00,6.00,myorg,carol,Engineering
+2025-01-06,Copilot,ai_credits,claude-sonnet-4-6,requests,400,12.00,0.00,12.00,myorg,dave,Data Science
+2025-01-06,Copilot,ai_credits,claude-opus-4-6,requests,300,9.00,0.00,9.00,myorg,eve,Data Science
+2025-01-06,Copilot,ai_credits,claude-haiku-3-5-20241022,requests,150,4.50,0.00,4.50,myorg,frank,Product
+2025-01-06,Copilot,ai_credits,claude-sonnet-4-6,requests,450,13.50,0.00,13.50,myorg,grace,Engineering
+2025-01-07,Copilot,ai_credits,claude-sonnet-4-6,requests,500,15.00,0.00,15.00,myorg,alice,Engineering
+2025-01-07,Copilot,ai_credits,claude-sonnet-4-6,requests,350,10.50,0.00,10.50,myorg,bob,Engineering
+2025-01-07,Copilot,ai_credits,claude-haiku-3-5-20241022,requests,200,6.00,0.00,6.00,myorg,carol,Engineering
+2025-01-07,Copilot,ai_credits,claude-sonnet-4-6,requests,400,12.00,0.00,12.00,myorg,dave,Data Science
+2025-01-07,Copilot,ai_credits,claude-opus-4-6,requests,300,9.00,0.00,9.00,myorg,eve,Data Science
+2025-01-07,Copilot,ai_credits,claude-haiku-3-5-20241022,requests,150,4.50,0.00,4.50,myorg,frank,Product
+2025-01-07,Copilot,ai_credits,claude-sonnet-4-6,requests,450,13.50,0.00,13.50,myorg,grace,Engineering
+2025-01-08,Copilot,ai_credits,claude-sonnet-4-6,requests,500,15.00,0.00,15.00,myorg,alice,Engineering
+2025-01-08,Copilot,ai_credits,claude-sonnet-4-6,requests,350,10.50,0.00,10.50,myorg,bob,Engineering
+2025-01-08,Copilot,ai_credits,claude-haiku-3-5-20241022,requests,200,6.00,0.00,6.00,myorg,carol,Engineering
+2025-01-08,Copilot,ai_credits,claude-sonnet-4-6,requests,400,12.00,0.00,12.00,myorg,dave,Data Science
+2025-01-08,Copilot,ai_credits,claude-opus-4-6,requests,300,9.00,0.00,9.00,myorg,eve,Data Science
+2025-01-08,Copilot,ai_credits,claude-haiku-3-5-20241022,requests,150,4.50,0.00,4.50,myorg,frank,Product
+2025-01-08,Copilot,ai_credits,claude-sonnet-4-6,requests,450,13.50,0.00,13.50,myorg,grace,Engineering
+2025-01-09,Copilot,ai_credits,claude-sonnet-4-6,requests,500,15.00,0.00,15.00,myorg,alice,Engineering
+2025-01-09,Copilot,ai_credits,claude-sonnet-4-6,requests,350,10.50,0.00,10.50,myorg,bob,Engineering
+2025-01-09,Copilot,ai_credits,claude-haiku-3-5-20241022,requests,200,6.00,0.00,6.00,myorg,carol,Engineering
+2025-01-09,Copilot,ai_credits,claude-sonnet-4-6,requests,400,12.00,0.00,12.00,myorg,dave,Data Science
+2025-01-09,Copilot,ai_credits,claude-opus-4-6,requests,300,9.00,0.00,9.00,myorg,eve,Data Science
+2025-01-09,Copilot,ai_credits,claude-haiku-3-5-20241022,requests,150,4.50,0.00,4.50,myorg,frank,Product
+2025-01-09,Copilot,ai_credits,claude-sonnet-4-6,requests,450,13.50,0.00,13.50,myorg,grace,Engineering
+2025-01-10,Copilot,ai_credits,claude-sonnet-4-6,requests,500,15.00,0.00,15.00,myorg,alice,Engineering
+2025-01-10,Copilot,ai_credits,claude-sonnet-4-6,requests,350,10.50,0.00,10.50,myorg,bob,Engineering
+2025-01-10,Copilot,ai_credits,claude-haiku-3-5-20241022,requests,200,6.00,0.00,6.00,myorg,carol,Engineering
+2025-01-10,Copilot,ai_credits,claude-sonnet-4-6,requests,400,12.00,0.00,12.00,myorg,dave,Data Science
+2025-01-10,Copilot,ai_credits,claude-opus-4-6,requests,300,9.00,0.00,9.00,myorg,eve,Data Science
+2025-01-10,Copilot,ai_credits,claude-haiku-3-5-20241022,requests,150,4.50,0.00,4.50,myorg,frank,Product
+2025-01-10,Copilot,ai_credits,claude-sonnet-4-6,requests,450,13.50,0.00,13.50,myorg,grace,Engineering

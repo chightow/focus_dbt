@@ -1,0 +1,11 @@
+user,organization,team,plan_type,seat_created_at,last_activity_at,last_activity_editor,pending_cancellation_date,monthly_cost
+alice,myorg,Engineering,business,2024-06-01,2025-01-15T10:30:00Z,vscode,,19.00
+bob,myorg,Engineering,business,2024-06-01,2025-01-15T10:30:00Z,jetbrains,,19.00
+carol,myorg,Engineering,business,2024-06-15,2025-01-15T10:30:00Z,vscode,,19.00
+dave,myorg,Data Science,business,2024-07-01,2025-01-15T10:30:00Z,vscode,,19.00
+eve,myorg,Data Science,business,2024-07-01,2025-01-15T10:30:00Z,jupyter,,19.00
+frank,myorg,Product,business,2024-08-01,2025-01-15T10:30:00Z,vscode,,19.00
+grace,myorg,Engineering,business,2024-09-01,2025-01-15T10:30:00Z,neovim,,19.00
+henry,myorg,Engineering,business,2024-10-01,2025-01-15T10:30:00Z,vscode,,19.00
+ivy,myorg,Design,enterprise,2024-11-01,2025-01-15T10:30:00Z,vscode,,39.00
+jack,myorg,Product,enterprise,2024-11-15,2025-01-15T10:30:00Z,jetbrains,,39.00
