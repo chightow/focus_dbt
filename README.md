@@ -68,4 +68,4 @@ Add a provider in 4 files:
 
 ## License
 
-Do whatever.
+MIT — do whatever.
